@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvjh0x2fus1f7"]
+[gd_scene load_steps=6 format=3 uid="uid://dvjh0x2fus1f7"]
 
 [ext_resource type="Script" uid="uid://b3fcuvsp6bitn" path="res://Scripts/file_path_manager.gd" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://cqhseuwwtyopi" path="res://Scripts/label_generator.gd" id="2_cm0pq"]
+[ext_resource type="Script" uid="uid://xuwal1onbglt" path="res://Scripts/display_images.gd" id="2_r0du0"]
 [ext_resource type="Script" uid="uid://fqw511hrtbcw" path="res://Scripts/file_saver.gd" id="2_uu6xs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cm0pq"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -11,23 +15,61 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="." node_paths=PackedStringArray("fileSystem")]
-layout_mode = 0
-offset_right = 999.0
-offset_bottom = 517.0
+[node name="Main" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SplitContainer" type="SplitContainer" parent="Main"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = 170
+dragging_enabled = false
+
+[node name="Side Panel" type="Panel" parent="Main/SplitContainer" node_paths=PackedStringArray("fileSystem", "contentLoader")]
+clip_contents = true
+layout_mode = 2
 script = ExtResource("1_glv2v")
-fileSystem = NodePath("../FileSaving")
+fileSystem = NodePath("../../../Scripts/FileSystem")
+contentLoader = NodePath("../Content Panel")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
-layout_mode = 0
-offset_right = 86.0
-offset_bottom = 101.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/SplitContainer/Side Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="LoadButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="ButtonContainer" type="VBoxContainer" parent="Main/SplitContainer/Side Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="LoadButton" type="Button" parent="Main/SplitContainer/Side Panel/VBoxContainer/ButtonContainer"]
 layout_mode = 2
 text = "Load File"
 
-[node name="LoadFileDialog" type="FileDialog" parent="Panel"]
+[node name="HSeparator" type="HSeparator" parent="Main/SplitContainer/Side Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Main/SplitContainer/Side Panel/VBoxContainer"]
+layout_mode = 2
+text = "Loaded Images"
+horizontal_alignment = 1
+
+[node name="ImagesLabelContainer" type="VBoxContainer" parent="Main/SplitContainer/Side Panel/VBoxContainer" node_paths=PackedStringArray("file_system")]
+layout_mode = 2
+script = ExtResource("2_cm0pq")
+file_system = NodePath("../../../../../Scripts/FileSystem")
+
+[node name="LoadFileDialog" type="FileDialog" parent="Main/SplitContainer/Side Panel"]
 title = "Open File(s)"
 initial_position = 1
 ok_button_text = "Open"
@@ -36,6 +78,22 @@ access = 2
 filters = PackedStringArray("*.png, *.jpg, *.jpeg")
 use_native_dialog = true
 
-[node name="FileSaving" type="Node" parent="."]
+[node name="Content Panel" type="Panel" parent="Main/SplitContainer" node_paths=PackedStringArray("file_system")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cm0pq")
+script = ExtResource("2_r0du0")
+file_system = NodePath("../../../Scripts/FileSystem")
+
+[node name="GridContainer" type="GridContainer" parent="Main/SplitContainer/Content Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 3
+
+[node name="Scripts" type="Node" parent="."]
+
+[node name="FileSystem" type="Node" parent="Scripts"]
 script = ExtResource("2_uu6xs")
 TargetDocumentName = "FilePaths.txt"

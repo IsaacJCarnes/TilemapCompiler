@@ -2,8 +2,10 @@
 extends Panel
 
 @export var fileSystem:Node
+@export var contentLoader:Panel
 
 @onready var LoadFileDialog = $LoadFileDialog
+@onready var LoadButton = $VBoxContainer/ButtonContainer/LoadButton
 @onready var RegexValidator = RegEx.new()
 
 # In this file, the word "silly" is used to make it obvious that the name is arbitrary.
@@ -13,18 +15,19 @@ var editor_interface: EditorInterface
 
 var pathList: Array[String]
 
-
 func _ready() -> void:
-	$VBoxContainer/LoadButton.pressed.connect(load_pressed)
+	print(OS.get_user_data_dir())
+	LoadButton.pressed.connect(load_pressed)
 	LoadFileDialog.files_selected.connect(load_file_selected)
 	RenderingServer.canvas_item_set_clip(get_canvas_item(), true)
 	RegexValidator.compile('^.*\\.(jpg|png|jpeg)$')
-	if fileSystem.load_content():
-		pathList.assign(str_to_var(fileSystem.load_content()))
-		print(pathList)
+	fileSystem.has_loaded.connect(assign_pathlist)
 
 func load_pressed() -> void:
 	LoadFileDialog.popup_centered_ratio()
+
+func assign_pathlist():
+	pathList.assign(fileSystem.get_content())
 
 
 func load_file_selected(paths: PackedStringArray) -> bool:
