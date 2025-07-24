@@ -1,16 +1,12 @@
-@tool
-extends Panel
+extends Node
 
 @export var fileSystem:Node
-@export var contentLoader:Panel
+@export var LoadFileDialog:FileDialog
+@export var LoadButton:Button
 
-@onready var LoadFileDialog = $LoadFileDialog
-@onready var LoadButton = $VBoxContainer/ButtonContainer/LoadButton
+@onready var parent = get_parent()
 @onready var RegexValidator = RegEx.new()
 
-# In this file, the word "silly" is used to make it obvious that the name is arbitrary.
-
-#var silly_material_resource = preload("res://addons/material_creator/material_resource.gd")
 var editor_interface: EditorInterface
 
 var pathList: Array[String]
@@ -19,7 +15,7 @@ func _ready() -> void:
 	print(OS.get_user_data_dir())
 	LoadButton.pressed.connect(load_pressed)
 	LoadFileDialog.files_selected.connect(load_file_selected)
-	RenderingServer.canvas_item_set_clip(get_canvas_item(), true)
+	RenderingServer.canvas_item_set_clip(parent.get_canvas_item(), true)
 	RegexValidator.compile('^.*\\.(jpg|png|jpeg)$')
 	fileSystem.has_loaded.connect(assign_pathlist)
 
