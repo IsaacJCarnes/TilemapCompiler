@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dvjh0x2fus1f7"]
+[gd_scene load_steps=9 format=3 uid="uid://dvjh0x2fus1f7"]
 
+[ext_resource type="Script" uid="uid://jexy2fg6s8of" path="res://Scripts/control_listener.gd" id="1_3dxm6"]
 [ext_resource type="Script" uid="uid://b3fcuvsp6bitn" path="res://Scripts/image_loader.gd" id="1_glv2v"]
 [ext_resource type="Script" uid="uid://cqhseuwwtyopi" path="res://Scripts/label_generator.gd" id="2_cm0pq"]
 [ext_resource type="Script" uid="uid://xuwal1onbglt" path="res://Scripts/display_images.gd" id="2_r0du0"]
@@ -75,6 +76,22 @@ layout_mode = 2
 script = ExtResource("2_cm0pq")
 file_system = NodePath("../../../../../Scripts/FileSystem")
 
+[node name="BottomButtons" type="VBoxContainer" parent="Main/SplitContainer/Side Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+alignment = 2
+
+[node name="Label" type="Label" parent="Main/SplitContainer/Side Panel/VBoxContainer/BottomButtons"]
+layout_mode = 2
+text = "Scale:"
+
+[node name="ScaleContainer" type="HScrollBar" parent="Main/SplitContainer/Side Panel/VBoxContainer/BottomButtons"]
+layout_mode = 2
+max_value = 2000.0
+step = 20.0
+exp_edit = true
+rounded = true
+
 [node name="LoadFileDialog" type="FileDialog" parent="Main/SplitContainer/Side Panel"]
 title = "Open File(s)"
 initial_position = 1
@@ -94,6 +111,12 @@ script = ExtResource("1_glv2v")
 fileSystem = NodePath("../../../../Scripts/FileSystem")
 LoadFileDialog = NodePath("../LoadFileDialog")
 LoadButton = NodePath("../VBoxContainer/ButtonContainer/LoadButton")
+
+[node name="control_listener" type="Node" parent="Main/SplitContainer/Side Panel" node_paths=PackedStringArray("image_displayer", "scaleScroll", "scrollTarget")]
+script = ExtResource("1_3dxm6")
+image_displayer = NodePath("../../../../SubViewport/GridContainer")
+scaleScroll = NodePath("../VBoxContainer/BottomButtons/ScaleContainer")
+scrollTarget = NodePath("../../Content Panel/ScrollContainer/TextureRect")
 
 [node name="image_exporter" type="Node" parent="Main/SplitContainer/Side Panel" node_paths=PackedStringArray("ExportFileDialog", "ExportButton", "TargetViewport")]
 script = ExtResource("3_fos0i")
@@ -118,6 +141,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = SubResource("ViewportTexture_cm0pq")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true

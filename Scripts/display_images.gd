@@ -10,6 +10,8 @@ extends GridContainer
 
 @export var initColumns:float = 3
 
+signal has_displayed_images
+
 func _ready():
 	columns = initColumns
 	scale =  Vector2(currentScale, currentScale)
@@ -31,4 +33,5 @@ func load_images():
 		print(filePath)
 	var rows = ceil(get_children().size() / initColumns)
 	parent.size = Vector2(tileXSize * initColumns, tileYSize * rows)
+	has_displayed_images.emit()
 	print(rows)
