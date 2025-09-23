@@ -9,7 +9,6 @@ func _ready():
 	load_content()
 
 func save_content(content:String):
-	EditorInterface.get_resource_filesystem().update_file(filePath)
 	var file = get_file(FileAccess.WRITE)
 	file.store_string(content)
 	file = null

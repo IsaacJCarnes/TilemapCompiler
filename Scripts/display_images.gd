@@ -19,7 +19,8 @@ func _ready():
 
 func change_columns(num: int):
 	columns = num
-	get_parent().size.x = tileXSize * num
+	var rows = ceil(get_children().size() / columns)
+	parent.size = Vector2(tileXSize * columns, tileYSize * rows)
 
 func load_images():
 	for child in get_children():
@@ -35,7 +36,7 @@ func load_images():
 		texRect.texture = texture
 		add_child(texRect)
 		print(filePath)
-	var rows = ceil(get_children().size() / initColumns)
+	var rows = ceil(get_children().size() / columns)
 	parent.size = Vector2(tileXSize * columns, tileYSize * rows)
 	has_displayed_images.emit()
 	print(rows)

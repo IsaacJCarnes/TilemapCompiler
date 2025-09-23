@@ -12,7 +12,6 @@ var editor_interface: EditorInterface
 var pathList: Array[String]
 
 func _ready() -> void:
-	print(OS.get_user_data_dir())
 	LoadButton.pressed.connect(load_pressed)
 	LoadFileDialog.files_selected.connect(load_file_selected)
 	RenderingServer.canvas_item_set_clip(parent.get_canvas_item(), true)
