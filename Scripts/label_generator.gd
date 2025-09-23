@@ -2,7 +2,7 @@ extends VBoxContainer
 
 @export var file_system:Node
 
-var current_file_list:Array[String]
+var current_file_list:Array
 
 func _ready():
 	file_system.has_loaded.connect(create_labels)
@@ -32,4 +32,4 @@ func create_labels():
 
 func remove_item(id):
 	current_file_list.remove_at(id)
-	file_system.save_content(var_to_str(current_file_list))
+	file_system.save_content(current_file_list)

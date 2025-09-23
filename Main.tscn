@@ -131,12 +131,14 @@ LoadFileDialog = NodePath("../LoadFileDialog")
 LoadButton = NodePath("../VBoxContainer/ButtonContainer/LoadButton")
 
 [node name="control_listener" type="Node" parent="Main/SplitContainer/Side Panel" node_paths=PackedStringArray("image_displayer", "scaleScroll", "scrollTarget", "refreshButton", "colSetter")]
+[node name="control_listener" type="Node" parent="Main/SplitContainer/Side Panel" node_paths=PackedStringArray("image_displayer", "scaleScroll", "scrollTarget", "refreshButton", "colSetter", "fileSystem")]
 script = ExtResource("1_3dxm6")
 image_displayer = NodePath("../../../../SubViewport/GridContainer")
 scaleScroll = NodePath("../VBoxContainer/BottomButtons/ScaleContainer")
 scrollTarget = NodePath("../../Content Panel/ScrollContainer/TextureRect")
 refreshButton = NodePath("../VBoxContainer/BottomButtons/RefreshButton")
 colSetter = NodePath("../VBoxContainer/BottomButtons/ColSetterBox/ColSetter")
+fileSystem = NodePath("../../../../Scripts/FileSystem")
 
 [node name="image_exporter" type="Node" parent="Main/SplitContainer/Side Panel" node_paths=PackedStringArray("ExportFileDialog", "ExportButton", "TargetViewport")]
 script = ExtResource("3_fos0i")
@@ -180,5 +182,7 @@ currentScale = 1.0
 [node name="Scripts" type="Node" parent="."]
 
 [node name="FileSystem" type="Node" parent="Scripts"]
+[node name="FileSystem" type="Node" parent="Scripts" node_paths=PackedStringArray("gridItem")]
 script = ExtResource("2_uu6xs")
 TargetDocumentName = "FilePaths.txt"
+gridItem = NodePath("../../SubViewport/GridContainer")

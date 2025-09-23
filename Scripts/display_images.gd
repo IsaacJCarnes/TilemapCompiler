@@ -13,14 +13,12 @@ extends GridContainer
 signal has_displayed_images
 
 func _ready():
-	columns = initColumns
 	scale =  Vector2(currentScale, currentScale)
 	file_system.has_loaded.connect(load_images)
 
 func change_columns(num: int):
 	columns = num
-	var rows = ceil(get_children().size() / columns)
-	parent.size = Vector2(tileXSize * columns, tileYSize * rows)
+	adjustParentSize();
 
 func load_images():
 	for child in get_children():
@@ -35,8 +33,10 @@ func load_images():
 		texRect.size = Vector2(tileXSize * currentScale, tileYSize * currentScale)
 		texRect.texture = texture
 		add_child(texRect)
-		print(filePath)
-	var rows = ceil(get_children().size() / columns)
-	parent.size = Vector2(tileXSize * columns, tileYSize * rows)
+		#print(filePath)
+	adjustParentSize()
 	has_displayed_images.emit()
-	print(rows)
+
+func adjustParentSize():
+	var rows = ceil((get_children().size()+1) / columns)
+	parent.size = Vector2(tileXSize * columns, tileYSize * rows)

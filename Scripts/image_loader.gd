@@ -36,5 +36,5 @@ func load_file_selected(paths: PackedStringArray) -> bool:
 			printerr(path, " is not an image")
 			continue
 		pathList.append(path)
-	fileSystem.save_content(var_to_str(pathList))
+	fileSystem.save_content(pathList)
 	return true
