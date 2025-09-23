@@ -96,6 +96,20 @@ step = 20.0
 exp_edit = true
 rounded = true
 
+[node name="ColSetterBox" type="HBoxContainer" parent="Main/SplitContainer/Side Panel/VBoxContainer/BottomButtons"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Main/SplitContainer/Side Panel/VBoxContainer/BottomButtons/ColSetterBox"]
+layout_mode = 2
+text = "Columns"
+
+[node name="ColSetter" type="SpinBox" parent="Main/SplitContainer/Side Panel/VBoxContainer/BottomButtons/ColSetterBox"]
+layout_mode = 2
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+alignment = 2
+
 [node name="LoadFileDialog" type="FileDialog" parent="Main/SplitContainer/Side Panel"]
 title = "Open File(s)"
 initial_position = 1
@@ -116,12 +130,13 @@ fileSystem = NodePath("../../../../Scripts/FileSystem")
 LoadFileDialog = NodePath("../LoadFileDialog")
 LoadButton = NodePath("../VBoxContainer/ButtonContainer/LoadButton")
 
-[node name="control_listener" type="Node" parent="Main/SplitContainer/Side Panel" node_paths=PackedStringArray("image_displayer", "scaleScroll", "scrollTarget", "refreshButton")]
+[node name="control_listener" type="Node" parent="Main/SplitContainer/Side Panel" node_paths=PackedStringArray("image_displayer", "scaleScroll", "scrollTarget", "refreshButton", "colSetter")]
 script = ExtResource("1_3dxm6")
 image_displayer = NodePath("../../../../SubViewport/GridContainer")
 scaleScroll = NodePath("../VBoxContainer/BottomButtons/ScaleContainer")
 scrollTarget = NodePath("../../Content Panel/ScrollContainer/TextureRect")
 refreshButton = NodePath("../VBoxContainer/BottomButtons/RefreshButton")
+colSetter = NodePath("../VBoxContainer/BottomButtons/ColSetterBox/ColSetter")
 
 [node name="image_exporter" type="Node" parent="Main/SplitContainer/Side Panel" node_paths=PackedStringArray("ExportFileDialog", "ExportButton", "TargetViewport")]
 script = ExtResource("3_fos0i")

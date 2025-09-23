@@ -17,6 +17,9 @@ func _ready():
 	scale =  Vector2(currentScale, currentScale)
 	file_system.has_loaded.connect(load_images)
 
+func change_columns(num: int):
+	columns = num
+
 func load_images():
 	for child in get_children():
 		remove_child(child)
