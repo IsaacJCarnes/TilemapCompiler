@@ -81,6 +81,10 @@ layout_mode = 2
 size_flags_vertical = 10
 alignment = 2
 
+[node name="RefreshButton" type="Button" parent="Main/SplitContainer/Side Panel/VBoxContainer/BottomButtons"]
+layout_mode = 2
+text = "Refresh"
+
 [node name="Label" type="Label" parent="Main/SplitContainer/Side Panel/VBoxContainer/BottomButtons"]
 layout_mode = 2
 text = "Scale:"
@@ -112,11 +116,12 @@ fileSystem = NodePath("../../../../Scripts/FileSystem")
 LoadFileDialog = NodePath("../LoadFileDialog")
 LoadButton = NodePath("../VBoxContainer/ButtonContainer/LoadButton")
 
-[node name="control_listener" type="Node" parent="Main/SplitContainer/Side Panel" node_paths=PackedStringArray("image_displayer", "scaleScroll", "scrollTarget")]
+[node name="control_listener" type="Node" parent="Main/SplitContainer/Side Panel" node_paths=PackedStringArray("image_displayer", "scaleScroll", "scrollTarget", "refreshButton")]
 script = ExtResource("1_3dxm6")
 image_displayer = NodePath("../../../../SubViewport/GridContainer")
 scaleScroll = NodePath("../VBoxContainer/BottomButtons/ScaleContainer")
 scrollTarget = NodePath("../../Content Panel/ScrollContainer/TextureRect")
+refreshButton = NodePath("../VBoxContainer/BottomButtons/RefreshButton")
 
 [node name="image_exporter" type="Node" parent="Main/SplitContainer/Side Panel" node_paths=PackedStringArray("ExportFileDialog", "ExportButton", "TargetViewport")]
 script = ExtResource("3_fos0i")
