@@ -48,8 +48,6 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="ButtonContainer" type="VBoxContainer" parent="Main/SplitContainer/Side Panel/VBoxContainer"]
 layout_mode = 2
@@ -72,13 +70,18 @@ text = "Loaded Images"
 horizontal_alignment = 1
 
 [node name="ImagesLabelContainer" type="VBoxContainer" parent="Main/SplitContainer/Side Panel/VBoxContainer" node_paths=PackedStringArray("file_system")]
+clip_contents = true
 layout_mode = 2
+size_flags_vertical = 0
 script = ExtResource("2_cm0pq")
 file_system = NodePath("../../../../../Scripts/FileSystem")
 
+[node name="VScrollBar" type="VScrollBar" parent="Main/SplitContainer/Side Panel/VBoxContainer/ImagesLabelContainer"]
+layout_mode = 2
+
 [node name="BottomButtons" type="VBoxContainer" parent="Main/SplitContainer/Side Panel/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_vertical = 3
 alignment = 2
 
 [node name="RefreshButton" type="Button" parent="Main/SplitContainer/Side Panel/VBoxContainer/BottomButtons"]
@@ -101,10 +104,12 @@ layout_mode = 2
 
 [node name="Label2" type="Label" parent="Main/SplitContainer/Side Panel/VBoxContainer/BottomButtons/ColSetterBox"]
 layout_mode = 2
+size_flags_horizontal = 0
 text = "Columns"
 
 [node name="ColSetter" type="SpinBox" parent="Main/SplitContainer/Side Panel/VBoxContainer/BottomButtons/ColSetterBox"]
 layout_mode = 2
+size_flags_horizontal = 10
 min_value = 1.0
 max_value = 10.0
 value = 1.0
@@ -130,7 +135,6 @@ fileSystem = NodePath("../../../../Scripts/FileSystem")
 LoadFileDialog = NodePath("../LoadFileDialog")
 LoadButton = NodePath("../VBoxContainer/ButtonContainer/LoadButton")
 
-[node name="control_listener" type="Node" parent="Main/SplitContainer/Side Panel" node_paths=PackedStringArray("image_displayer", "scaleScroll", "scrollTarget", "refreshButton", "colSetter")]
 [node name="control_listener" type="Node" parent="Main/SplitContainer/Side Panel" node_paths=PackedStringArray("image_displayer", "scaleScroll", "scrollTarget", "refreshButton", "colSetter", "fileSystem")]
 script = ExtResource("1_3dxm6")
 image_displayer = NodePath("../../../../SubViewport/GridContainer")
@@ -181,7 +185,6 @@ currentScale = 1.0
 
 [node name="Scripts" type="Node" parent="."]
 
-[node name="FileSystem" type="Node" parent="Scripts"]
 [node name="FileSystem" type="Node" parent="Scripts" node_paths=PackedStringArray("gridItem")]
 script = ExtResource("2_uu6xs")
 TargetDocumentName = "FilePaths.txt"

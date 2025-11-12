@@ -12,8 +12,10 @@ var editor_interface: EditorInterface
 var pathList: Array[String]
 
 func _ready() -> void:
-	LoadButton.pressed.connect(load_pressed)
-	LoadFileDialog.files_selected.connect(load_file_selected)
+	if LoadButton:
+		LoadButton.pressed.connect(load_pressed)
+	if LoadFileDialog:
+		LoadFileDialog.files_selected.connect(load_file_selected)
 	RenderingServer.canvas_item_set_clip(parent.get_canvas_item(), true)
 	RegexValidator.compile('^.*\\.(jpg|png|jpeg)$')
 	fileSystem.has_loaded.connect(assign_pathlist)

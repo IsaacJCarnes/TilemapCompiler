@@ -1,0 +1,153 @@
+[gd_scene load_steps=7 format=3 uid="uid://04nt8bb2mr6i"]
+
+[ext_resource type="Script" uid="uid://b3fcuvsp6bitn" path="res://Scripts/image_loader.gd" id="2_ntecp"]
+[ext_resource type="Script" uid="uid://jexy2fg6s8of" path="res://Scripts/control_listener.gd" id="3_r577i"]
+[ext_resource type="Script" uid="uid://c6mjjt5jiql58" path="res://Scripts/display_random_images.gd" id="3_w2yj1"]
+[ext_resource type="Script" uid="uid://fqw511hrtbcw" path="res://Scripts/file_saver.gd" id="5_amn73"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8coip"]
+bg_color = Color(0.31802, 0.31802, 0.31802, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_b8408"]
+viewport_path = NodePath("SubViewport")
+
+[node name="ImageArray" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Main" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SplitContainer" type="SplitContainer" parent="Main"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = 170
+dragging_enabled = false
+
+[node name="Side Panel" type="Panel" parent="Main/SplitContainer"]
+clip_contents = true
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/SplitContainer/Side Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="HSeparator" type="HSeparator" parent="Main/SplitContainer/Side Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="RefreshButton" type="Button" parent="Main/SplitContainer/Side Panel/VBoxContainer"]
+layout_mode = 2
+text = "Refresh"
+
+[node name="Label" type="Label" parent="Main/SplitContainer/Side Panel/VBoxContainer"]
+layout_mode = 2
+text = "Scale:"
+
+[node name="ScaleContainer" type="HScrollBar" parent="Main/SplitContainer/Side Panel/VBoxContainer"]
+layout_mode = 2
+max_value = 2000.0
+step = 20.0
+exp_edit = true
+rounded = true
+
+[node name="ColSetterBox" type="HBoxContainer" parent="Main/SplitContainer/Side Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Main/SplitContainer/Side Panel/VBoxContainer/ColSetterBox"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Columns"
+
+[node name="ColSetter" type="SpinBox" parent="Main/SplitContainer/Side Panel/VBoxContainer/ColSetterBox"]
+layout_mode = 2
+size_flags_horizontal = 10
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+alignment = 2
+
+[node name="RowSetterBox" type="HBoxContainer" parent="Main/SplitContainer/Side Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Main/SplitContainer/Side Panel/VBoxContainer/RowSetterBox"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Rows"
+
+[node name="RowSetter" type="SpinBox" parent="Main/SplitContainer/Side Panel/VBoxContainer/RowSetterBox"]
+layout_mode = 2
+size_flags_horizontal = 10
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+alignment = 2
+
+[node name="image_loader" type="Node" parent="Main/SplitContainer/Side Panel" node_paths=PackedStringArray("fileSystem", "LoadFileDialog", "LoadButton")]
+script = ExtResource("2_ntecp")
+fileSystem = NodePath("../../../../Scripts/FileSystem")
+LoadFileDialog = NodePath("")
+LoadButton = NodePath("")
+
+[node name="control_listener" type="Node" parent="Main/SplitContainer/Side Panel" node_paths=PackedStringArray("image_displayer", "scaleScroll", "scrollTarget", "refreshButton", "colSetter", "rowSetter", "fileSystem")]
+script = ExtResource("3_r577i")
+image_displayer = NodePath("../../../../SubViewport/GridContainer")
+scaleScroll = NodePath("../VBoxContainer/ScaleContainer")
+scrollTarget = NodePath("../../Content Panel/ScrollContainer/TextureRect")
+refreshButton = NodePath("../VBoxContainer/RefreshButton")
+colSetter = NodePath("../VBoxContainer/ColSetterBox/ColSetter")
+rowSetter = NodePath("../VBoxContainer/RowSetterBox/RowSetter")
+fileSystem = NodePath("../../../../Scripts/FileSystem")
+
+[node name="Content Panel" type="Panel" parent="Main/SplitContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8coip")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Main/SplitContainer/Content Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Main/SplitContainer/Content Panel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource("ViewportTexture_b8408")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="GridContainer" type="GridContainer" parent="SubViewport" node_paths=PackedStringArray("file_system")]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 3
+script = ExtResource("3_w2yj1")
+file_system = NodePath("../../Scripts/FileSystem")
+currentScale = 1.0
+
+[node name="Scripts" type="Node" parent="."]
+
+[node name="FileSystem" type="Node" parent="Scripts" node_paths=PackedStringArray("gridItem")]
+script = ExtResource("5_amn73")
+TargetDocumentName = "FilePaths.txt"
+gridItem = NodePath("../../SubViewport/GridContainer")
