@@ -36,8 +36,17 @@ func load_random_images():
 	var filePaths = file_system.get_content()
 	for i in range(columns):
 		for x in range(rows):
-			var image = Image.load_from_file(filePaths.pick_random())
-			var texture = ImageTexture.create_from_image(image)
+			var image:Image = Image.load_from_file(filePaths.pick_random())
+			if randi_range(0,1) == 0:
+				image.flip_x()
+			match randi_range(0,3):
+				1:
+					image.rotate_90(CLOCKWISE)
+				2:
+					image.rotate_180()
+				3:
+					image.rotate_90(COUNTERCLOCKWISE)
+			var texture:ImageTexture = ImageTexture.create_from_image(image)
 			var texRect:TextureRect = TextureRect.new()
 			texRect.scale = Vector2(currentScale, currentScale)
 			texRect.size = Vector2(tileXSize * currentScale, tileYSize * currentScale)

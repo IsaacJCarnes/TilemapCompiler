@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://04nt8bb2mr6i"]
+[gd_scene load_steps=9 format=3 uid="uid://04nt8bb2mr6i"]
 
 [ext_resource type="Script" uid="uid://b3fcuvsp6bitn" path="res://Scripts/image_loader.gd" id="2_ntecp"]
+[ext_resource type="Shader" uid="uid://cp3fp6rj18ec1" path="res://Shaders/ReplaceColors.gdshader" id="3_l8hyf"]
 [ext_resource type="Script" uid="uid://jexy2fg6s8of" path="res://Scripts/control_listener.gd" id="3_r577i"]
 [ext_resource type="Script" uid="uid://c6mjjt5jiql58" path="res://Scripts/display_random_images.gd" id="3_w2yj1"]
 [ext_resource type="Script" uid="uid://fqw511hrtbcw" path="res://Scripts/file_saver.gd" id="5_amn73"]
@@ -10,6 +11,10 @@ bg_color = Color(0.31802, 0.31802, 0.31802, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_b8408"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ntecp"]
+render_priority = 0
+shader = ExtResource("3_l8hyf")
 
 [node name="ImageArray" type="Control"]
 layout_mode = 3
@@ -136,6 +141,7 @@ stretch_mode = 4
 transparent_bg = true
 
 [node name="GridContainer" type="GridContainer" parent="SubViewport" node_paths=PackedStringArray("file_system")]
+material = SubResource("ShaderMaterial_ntecp")
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_constants/h_separation = 0
