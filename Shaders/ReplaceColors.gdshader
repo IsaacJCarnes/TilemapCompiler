@@ -1,14 +1,8 @@
-shader_type spatial;
-
-void vertex() {
-	// Called for every vertex the material is visible on.
-}
-
+shader_type canvas_item;
+uniform vec4 second_color : source_color;
+uniform vec4 main_color : source_color;
 void fragment() {
-	// Called for every pixel the material is visible on.
+	if(COLOR.a != 0.0){
+		COLOR = vec4(second_color.x,second_color.y,second_color.z,COLOR.a);
+	}//mix(COLOR, , .5);
 }
-
-//void light() {
-//	// Called for every pixel for every light affecting the material.
-//	// Uncomment to replace the default light processing function with this one.
-//}

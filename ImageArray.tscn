@@ -9,12 +9,13 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8coip"]
 bg_color = Color(0.31802, 0.31802, 0.31802, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l8hyf"]
+shader = ExtResource("3_l8hyf")
+shader_parameter/second_color = Color(0, 0, 1, 1)
+shader_parameter/main_color = Color(0, 0, 0, 1)
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_b8408"]
 viewport_path = NodePath("SubViewport")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ntecp"]
-render_priority = 0
-shader = ExtResource("3_l8hyf")
 
 [node name="ImageArray" type="Control"]
 layout_mode = 3
@@ -130,6 +131,8 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="Main/SplitContainer/Content Panel/ScrollContainer"]
+texture_filter = 2
+material = SubResource("ShaderMaterial_l8hyf")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -141,7 +144,7 @@ stretch_mode = 4
 transparent_bg = true
 
 [node name="GridContainer" type="GridContainer" parent="SubViewport" node_paths=PackedStringArray("file_system")]
-material = SubResource("ShaderMaterial_ntecp")
+texture_filter = 1
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_constants/h_separation = 0
