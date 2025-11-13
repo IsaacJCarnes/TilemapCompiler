@@ -11,8 +11,8 @@ bg_color = Color(0.31802, 0.31802, 0.31802, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l8hyf"]
 shader = ExtResource("3_l8hyf")
-shader_parameter/second_color = Color(0, 0, 1, 1)
 shader_parameter/main_color = Color(0, 0, 0, 1)
+shader_parameter/second_color = Color(0.541767, 0.000364831, 0.583248, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_b8408"]
 viewport_path = NodePath("SubViewport")
