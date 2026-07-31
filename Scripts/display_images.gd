@@ -38,5 +38,5 @@ func load_images():
 	has_displayed_images.emit()
 
 func adjustParentSize():
-	var rows = ceil((get_children().size()+1) / columns)
+	var rows = ceil(float(get_children().size()) / float(columns))
 	parent.size = Vector2(tileXSize * columns, tileYSize * rows)
